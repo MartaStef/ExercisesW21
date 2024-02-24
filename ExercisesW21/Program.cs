@@ -1,4 +1,6 @@
-﻿bool isWomen;
+﻿using System.Linq.Expressions;
+
+bool isWomen = false;
 
 Console.WriteLine("Podaj imię:");
 var name = Console.ReadLine();
@@ -12,19 +14,26 @@ var sexAsString = Console.ReadLine();
 if (sexAsString == "k") { isWomen = true; }
 else { isWomen = false; }
 
-if (isWomen && age < 30)
+try
 {
-    Console.WriteLine("Kobieta poniżej 30 lat");
+    if (isWomen && age < 30)
+    {
+        Console.WriteLine("Kobieta poniżej 30 lat");
+    }
+    else if (name == "Ewa" && age == 30)
+    {
+        Console.WriteLine("Ewa lat 30");
+    }
+    else if (!isWomen && age < 18)
+    {
+        Console.WriteLine("Niepełnoletni mężczyzna");
+    }
+    else
+    {
+        throw new InvalidOperationException("osoba poza zakresem parametrów");
+    }
 }
-else if (name == "Ewa" && age == 30)
+catch (InvalidOperationException ex)
 {
-    Console.WriteLine("Ewa lat 30");
-}
-else if (!isWomen && age < 18)
-{
-    Console.WriteLine("Niepełnoletni mężczyzna");
-}
-else
-{
-   Console.WriteLine("Osoba poza zakresem parametrów");
+    Console.WriteLine(ex.Message);
 }
