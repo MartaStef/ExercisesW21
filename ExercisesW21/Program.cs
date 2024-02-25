@@ -1,39 +1,18 @@
-﻿using System.Linq.Expressions;
+﻿
+Console.WriteLine("Podaj liczbę: ");
+var numberAsString = Console.ReadLine();
+char[] lettersAsNumber = numberAsString.ToArray();
+Console.WriteLine("Wynik dla liczby: " + numberAsString);
 
-bool isWomen = false;
+List<char> letters = new() { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 
-Console.WriteLine("Podaj imię:");
-var name = Console.ReadLine();
-
-Console.WriteLine("Podaj wiek");
-var ageAsString = Console.ReadLine();
-int age = int.Parse(ageAsString);
-
-Console.WriteLine("Podaj płeć: m - mężczyzna, k - kobieta");
-var sexAsString = Console.ReadLine();
-if (sexAsString == "k") { isWomen = true; }
-else { isWomen = false; }
-
-try
+foreach (char digit in letters)
 {
-    if (isWomen && age < 30)
+    int count = 0;
+    foreach (char letterAsNumber in lettersAsNumber)
     {
-        Console.WriteLine("Kobieta poniżej 30 lat");
+        if (letterAsNumber == digit)
+        { count++; }
     }
-    else if (name == "Ewa" && age == 30)
-    {
-        Console.WriteLine("Ewa lat 30");
-    }
-    else if (!isWomen && age < 18)
-    {
-        Console.WriteLine("Niepełnoletni mężczyzna");
-    }
-    else
-    {
-        throw new InvalidOperationException("osoba poza zakresem parametrów");
-    }
-}
-catch (InvalidOperationException ex)
-{
-    Console.WriteLine(ex.Message);
+    Console.WriteLine($"{digit} => {count}");
 }
