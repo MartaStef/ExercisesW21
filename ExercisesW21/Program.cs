@@ -1,4 +1,4 @@
-﻿do
+﻿while(true)
 {
     Console.WriteLine("Podaj liczbę całkowitą lub wpisz 'q' aby wyjść: ");
     var input = Console.ReadLine();
@@ -31,4 +31,4 @@
     {
         Console.WriteLine("Podany ciąg nie jest liczbą całkowitą. Spróbuj ponownie lub wpisz 'q' aby wyjść");
     }
-}while(true);
+}
