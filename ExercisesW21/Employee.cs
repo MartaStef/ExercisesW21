@@ -13,7 +13,25 @@
         public string Name { get; private set; }
         public string Surname { get;private set; }
         public int Age { get; private set;}
-        public char Sex { get; private set;}
+        public char sex;
+        public char Sex 
+        {
+            get 
+            { 
+                return sex;
+            }
+            set 
+            {
+                if (value == 'm' || value == 'f')
+                {
+                    sex = value;
+                }
+                else
+                {
+                    throw new ArgumentException("invalid sex");
+                }
+            }
+        }
 
         public int Result
         { 
