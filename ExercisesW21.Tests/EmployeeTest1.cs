@@ -2,11 +2,12 @@ namespace ExercisesW21.Tests
 {
     public class Tests
     {
+
         [Test]
         public void WhenEmployeeCollectGrades_ShouldCorrectSum()
         {
             // arrange
-            var employee = new Employee("Angelina", "Jolie", 49,'f');
+            var employee = new Employee("Angelina", "Jolie", 49, 'f');
             employee.AddGrade(5);
             employee.AddGrade(6);
 
@@ -14,7 +15,9 @@ namespace ExercisesW21.Tests
             var result = employee.Result;
 
             // assert
-            Assert.AreEqual(11,result);
+            Assert.AreEqual(11, result);
+
+
         }
     }
 }

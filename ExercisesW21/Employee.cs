@@ -3,6 +3,11 @@
     public class Employee
     {
         private List<int> grades = new List<int>();
+        public Employee(string name)
+        {
+        this.Name = name;
+        }
+    
         public Employee(string name, string surname, int age, char sex)
         {
             this.Name = name;
