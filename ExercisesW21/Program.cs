@@ -41,7 +41,7 @@ string text = " ";
 if (bestEmployee.Sex == 'm') { text = ", uzyskał wynik"; }
 if (bestEmployee.Sex == 'f') { text = ", uzyskała wynik "; }
 
-Console.WriteLine($"Najlepszy pracownik:{bestEmployee.Name} + {bestEmployee.Surname}, lat {bestEmployee.Age + text}");
+Console.WriteLine($"Najlepszy pracownik:{bestEmployee.Name} {bestEmployee.Surname}, lat {bestEmployee.Age + text}");
 Console.WriteLine($"Max:{bestStatistics.Max}");
 Console.WriteLine($"Min:{bestStatistics.Min}");
 Console.WriteLine($"Średnia:{bestStatistics.Average:N2}");
