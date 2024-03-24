@@ -16,29 +16,33 @@ foreach (var employee in employees)
         var input = Console.ReadLine();
         if (input == "next")
         { break; }
-        var grade = int.Parse(input);
+        var grade = float.Parse(input);
         employee.AddGrade(grade);
      } 
 }
 
-int maxResult = 0;
-
+float maxAverage = 0;
 Employee bestEmployee = null;
+Statistics bestStatistics = null;
 
 foreach (var employee in employees)
 {
-    if (employee.Result > maxResult)
-    {
+    var statistics = employee.GetStatistics();
+    if (statistics.Average > maxAverage)
+    {        
+        maxAverage = statistics.Average;
         bestEmployee = employee;
-        maxResult = employee.Result;
+        bestStatistics = statistics;
     }
 }
 
 string text = " ";
 
-if (bestEmployee.Sex == 'm') { text = ", uzyskal wynik "; }
+if (bestEmployee.Sex == 'm') { text = ", uzyskał wynik"; }
 if (bestEmployee.Sex == 'f') { text = ", uzyskała wynik "; }
 
-Console.WriteLine($"Najlepszy pracownik: " + bestEmployee.Name + " " + bestEmployee.Surname + ", lat " +
-bestEmployee.Age + text + bestEmployee.Result + " punktow"); 
+Console.WriteLine($"Najlepszy pracownik:{bestEmployee.Name} + {bestEmployee.Surname}, lat {bestEmployee.Age + text}");
+Console.WriteLine($"Max:{bestStatistics.Max}");
+Console.WriteLine($"Min:{bestStatistics.Min}");
+Console.WriteLine($"Średnia:{bestStatistics.Average:N2}");
  
