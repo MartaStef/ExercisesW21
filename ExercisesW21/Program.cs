@@ -16,8 +16,8 @@ foreach (var employee in employees)
         var input = Console.ReadLine();
         if (input == "next")
         { break; }
-        var grade = float.Parse(input);
-        employee.AddGrade(grade);
+        
+        employee.AddGrade(input);
      } 
 }
 
