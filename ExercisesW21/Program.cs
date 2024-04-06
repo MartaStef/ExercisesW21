@@ -15,8 +15,7 @@ foreach (var employee in employees)
         Console.WriteLine($"Podaj ocenę pracownika: {employee.Name}");
         var input = Console.ReadLine();
         if (input == "next")
-        { break; }
-        
+        { break; }        
         employee.AddGrade(input);
      } 
 }
