@@ -47,7 +47,25 @@ namespace ExercisesW21.Tests
             var statistics = employee.GetStatistics();
 
             // assert
-            Assert.AreEqual(Math.Round(4.66,2), Math.Round(statistics.Average, 2));
+            Assert.AreEqual(Math.Round(4.66, 2), Math.Round(statistics.Average, 2));
+        }
+
+
+        [Test]
+        public void WhenGetStatisticsCalled_ShouldReturnCorrectAverageLetter()
+        {
+            // arrange
+            var employee = new Employee("Angelina", "Jolie", 49, 'f');
+            employee.AddGrade(50);
+            employee.AddGrade(61);
+            employee.AddGrade(23);
+            employee.AddGrade('a');
+
+            // act
+            var statistics = employee.GetStatistics();
+
+            // assert
+            Assert.That(statistics.AverageLetter, Is.EqualTo('C'));
         }
     }
 }

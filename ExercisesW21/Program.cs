@@ -1,5 +1,12 @@
 ﻿using ExercisesW21;
 
+Console.WriteLine("Witaj w programie 'SZCZUR' do oceny pracowników");
+Console.WriteLine();
+Console.WriteLine("Należy wpisać oceny od 0 do 100 lub od a do e.");
+Console.WriteLine("Słowo 'next' kończy dodawanie ocen dla danego pracownika.");
+Console.WriteLine("na koniec pojawią się statystyki najlepszego pracownika");
+Console.WriteLine();
+
 Employee employee1 = new Employee("Rutger","Hauer", 80, 'm');
 Employee employee2 = new Employee("Arnold", "Schwarz", 77, 'm');
 Employee employee3 = new Employee("Julia", "Roberts", 57, 'f');
@@ -55,5 +62,6 @@ foreach (var bestEmployee in bestEmployees)
     Console.WriteLine($"Najlepszy pracownik:{bestEmployee.Name} {bestEmployee.Surname}, lat {bestEmployee.Age + text}");    
     Console.WriteLine($"Max:{bestStatistics.Max}");
     Console.WriteLine($"Min:{bestStatistics.Min}");
-    Console.WriteLine($"Średnia:{bestStatistics.Average:N2}");
+    Console.WriteLine($"Średnia liczbowa:{bestStatistics.Average:N2}");
+    Console.WriteLine($"Średnia literowa:{bestStatistics.AverageLetter}");
 }
