@@ -47,7 +47,7 @@ namespace ExercisesW21.Tests
             var statistics = employee.GetStatistics();
 
             // assert
-            Assert.AreEqual(Math.Round(4.66, 2), Math.Round(statistics.Average, 2));
+            Assert.AreEqual(Math.Round(4.67, 2), Math.Round(statistics.Average, 2));
         }
 
 

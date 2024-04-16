@@ -35,19 +35,15 @@ foreach (var employee in employees)
     var statistics = employee.GetStatistics();
     if (statistics.Average > maxAverage)
     {
-        maxAverage = statistics.Average;        
+        maxAverage = statistics.Average; 
+        bestEmployees.Clear();
+        bestEmployees.Add(employee);
     }    
-}
-
-foreach (var employee in employees)
-{
-    var statistics = employee.GetStatistics();
-    if(statistics.Average == maxAverage)
+    else if(statistics.Average == maxAverage)
     {
         bestEmployees.Add(employee);
     }
 }
-
 
 string text = " ";
 
