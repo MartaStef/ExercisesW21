@@ -56,7 +56,7 @@ namespace ExercisesW21
         {
             if (float.TryParse(grade, out float result))
             {
-                this.grades.Add(result);
+                this.AddGrade(result);
             }
             else if (grade.Length == 1)
             {               
