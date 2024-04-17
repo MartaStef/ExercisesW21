@@ -1,24 +1,19 @@
-﻿using System.Reflection.PortableExecutable;
-
-namespace ExercisesW21
+﻿namespace ExercisesW21
 {
-    public class Employee
+    public class Employee : Person
     {
         private List<float> grades = new List<float>();
-        public Employee(string name)
+        
+        public Employee(string name, string surname)
+            :base(name,surname)
         {
-            this.Name = name;
         }
-
         public Employee(string name, string surname, int age, char sex)
-        {
-            this.Name = name;
-            this.Surname = surname;
+            :base(name, surname)
+        {            
             this.Age = age;
             this.Sex = sex;
-        }
-        public string Name { get; private set; }
-        public string Surname { get; private set; }
+        }               
         public int Age { get; private set; }
         public char sex;
         public char Sex
