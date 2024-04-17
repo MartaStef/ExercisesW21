@@ -35,7 +35,7 @@ namespace ExercisesW21
                 }
                 else
                 {
-                    throw new ArgumentException("Invalid sex");
+                    throw new Exception("Invalid sex");
                 }
             }
         }
@@ -48,7 +48,7 @@ namespace ExercisesW21
             }
             else
             {
-                Console.WriteLine("Invalid grade value");
+                throw new Exception("Invalid grade value");
             }
         }
 
@@ -65,7 +65,7 @@ namespace ExercisesW21
             }
             else
             {
-                Console.WriteLine("String is not float");
+                throw new Exception("String is not float");
             }
         }
 
@@ -94,8 +94,7 @@ namespace ExercisesW21
                     this.AddGrade(20);
                     break;
                 default:
-                    Console.WriteLine("Wrong Letter");
-                    break;
+                    throw new Exception("Wrong Letter");                    
             }
         }
 
