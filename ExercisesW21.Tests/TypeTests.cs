@@ -32,8 +32,8 @@
         public void Test_Reference()
         {
             // arrange
-            var employee1 = GetEmployee("Olga");
-            var employee2 = GetEmployee("Olga");
+            var employee1 = GetEmployee("Olga", "Szaszok", 40, 'f');
+            var employee2 = GetEmployee("Olga", "Szaszok", 30, 'f');
 
             // act
 
@@ -42,9 +42,9 @@
             Assert.AreEqual(employee1.Name, employee2.Name);
         }
 
-        private Employee GetEmployee(string name)
+        private Employee GetEmployee(string name,string surname,int age, char sex)
         {
-            return new Employee (name);
+            return new Employee(name, surname, age, sex);
         }
     }
 }

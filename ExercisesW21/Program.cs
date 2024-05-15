@@ -2,61 +2,73 @@
 
 Console.WriteLine("Witaj w programie 'SZCZUR' do oceny pracowników i kierowników");
 Console.WriteLine("-------------------------------------------------------------");
-Console.WriteLine("Aby dodać pracownika należy wpisać literę p, a następnie oceny od 0 do 100 lub od a do e.");
-Console.WriteLine("Aby dodać kierownika należy wpisać literę k, a następnie oceny od 1 do 6 (z +/-) lub od a do e.");
+Console.WriteLine("Aby dodać pracownika sezonowego wpisz literę s, oceny od 0 do 100 lub od a do e.");
+Console.WriteLine("Aby dodać pracownika stałego wpisz literę p, oceny od 0 do 100 lub od a do e.");
+Console.WriteLine("Aby dodać kierownika należy wpisać literę k, oceny od 1 do 6 (z +/-) lub od a do e.");
 Console.WriteLine("Słowo 'next' kończy dodawanie ocen dla danego pracownika lub kierownika");
 Console.WriteLine("Na koniec pojawią się statystyki najlepszego pracownika lub kierownika");
 Console.WriteLine();
 
 List<Employee> employees = new List<Employee>();
 
+List<EmployeeInFile> employeesInFile = new List<EmployeeInFile>();
+
 List<Supervisor> supervisors = new List<Supervisor>();
+
+ void AddEmployeeData<T>(List<T> employeesList) where T : EmployeeBase
+{
+    Console.WriteLine("Podaj imię:");
+    string name = Console.ReadLine();
+    Console.WriteLine("Podaj nazwisko:");
+    string surname = Console.ReadLine();
+    Console.WriteLine("Podaj wiek:");
+    int age = int.Parse(Console.ReadLine());
+    Console.WriteLine("Podaj dział:");
+    string departmentString = (Console.ReadLine());
+    Department department;
+    Enum.TryParse(departmentString, out department);
+    try
+    {
+        Console.WriteLine("Podaj płeć (m/f)");
+        char sex = char.Parse(Console.ReadLine());
+        if (employeesList is List<Employee>)
+        {
+            Employee employee = new Employee(name, surname, age, sex, department);
+            employees.Add(employee);
+        }
+        else if (employeesList is List<EmployeeInFile>)
+        {
+            EmployeeInFile employeeInFile = new EmployeeInFile(name, surname, age, sex, department);
+            employeesInFile.Add(employeeInFile);
+        }
+        else if (employeesList is List<Supervisor>)
+        {
+            Supervisor supervisor = new Supervisor(name, surname, age, sex, department);
+            supervisors.Add(supervisor);
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);        
+    }
+    
+ } 
 
 while(true)
 {
-    Console.WriteLine("Wpisz p aby dodać pracownika, k aby dodać kierownika, q aby zakończyc");
+    Console.WriteLine("Wpisz s lub p aby dodać pracownika, k aby dodać kierownika, q aby zakończyc");
     var type = Console.ReadLine();
-    if (type == "p" || type == "P")
+    if (type == "s" || type == "S")
     {
-        Console.WriteLine("Podaj imię:");
-        string name = Console.ReadLine();
-        Console.WriteLine("Podaj nazwisko:");
-        string surname = Console.ReadLine();
-        Console.WriteLine("Podaj wiek:");
-        int age = int.Parse(Console.ReadLine());
-        try
-        {
-            Console.WriteLine("Podaj płeć (m/f)");
-            char sex = char.Parse(Console.ReadLine());
-            Employee employee = new Employee(name, surname, age, sex);
-            employees.Add(employee);
-        }
-        catch (Exception ex) 
-        {
-            Console.WriteLine(ex.Message);
-            continue;
-        }
+        AddEmployeeData(employees);
+    }
+    else if(type == "p" || type == "P")
+    {
+        AddEmployeeData(employeesInFile);
     }
     else if(type == "k" || type == "K")
-    { 
-        Console.WriteLine("Podaj imię:");
-        string name = Console.ReadLine();
-        Console.WriteLine("Podaj nazwisko:");
-        string surname = Console.ReadLine();
-        Console.WriteLine("Podaj wiek:");
-        int age = int.Parse(Console.ReadLine());
-        try
-        {
-            Console.WriteLine("Podaj płeć (m/f)");
-            char sex = char.Parse(Console.ReadLine());
-            Supervisor supervisor = new Supervisor(name, surname, age, sex);
-            supervisors.Add(supervisor);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-            continue;
-        }
+    {
+        AddEmployeeData(supervisors);
     }    
     else if (type == "q")
     { break; }
@@ -67,42 +79,57 @@ while(true)
     }
 }
 
-foreach (var employee in employees)
+void AddGradeToEmployee<T>(List<T> employeesList) where T : EmployeeBase
 {
-    while (true)
-    {        
-        Console.WriteLine($"Podaj ocenę pracownika: {employee.Name}");
-        var input = Console.ReadLine();
-        if (input == "next")
-        { break; }
-        try
+    foreach (var employee in employeesList)
+    {
+        while (true)
         {
-            employee.AddGrade(input);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
+            Console.WriteLine($"Podaj ocenę pracownika {employee.Name}");
+            var input = Console.ReadLine();
+            if (input == "next")
+            { break; }
+            try
+            {
+                employee.AddGrade(input);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }
 
-float maxAverage = 0;
-List<Employee> bestEmployees = new List<Employee>();
-
-foreach (var employee in employees)
+static List<T> FindBestEmployees<T>(List<T> employeesList) where T : EmployeeBase
 {
-    var statistics = employee.GetStatistics();
-    if (statistics.Average > maxAverage)
+    float maxAverage = 0;
+    List<T> bestEmployees = new List<T>();
+
+    foreach (var employee in employeesList)
     {
-        maxAverage = statistics.Average;
-        bestEmployees.Clear();
-        bestEmployees.Add(employee);
+        var statistics = employee.GetStatistics();
+        if (statistics.Average > maxAverage)
+        {
+            maxAverage = statistics.Average;
+            bestEmployees.Clear();
+            bestEmployees.Add(employee);
+        }
+        else if (statistics.Average == maxAverage)
+        {
+            bestEmployees.Add(employee);
+        }
     }
-    else if (statistics.Average == maxAverage)
-    {
-        bestEmployees.Add(employee);
-    }
+    return bestEmployees;
 }
+
+AddGradeToEmployee(employees);
+AddGradeToEmployee(employeesInFile);
+AddGradeToEmployee(supervisors);
+
+var bestEmployees = FindBestEmployees(employees);
+var bestEmployeesInFile = FindBestEmployees(employeesInFile);
+var bestSupervisors = FindBestEmployees(supervisors);
 
 string text = " ";
 
@@ -114,49 +141,26 @@ foreach (var bestEmployee in bestEmployees)
     var bestStatistics = bestEmployee.GetStatistics();
 
     Console.WriteLine();
-    Console.WriteLine($"Najlepszy pracownik:{bestEmployee.Name} {bestEmployee.Surname}, lat {bestEmployee.Age + text}");
+    Console.WriteLine($"Najlepszy pracownik sezonowy:{bestEmployee.Name} {bestEmployee.Surname}, lat {bestEmployee.Age + text}");
     Console.WriteLine($"Max:{bestStatistics.Max}");
     Console.WriteLine($"Min:{bestStatistics.Min}");
     Console.WriteLine($"Średnia liczbowa:{bestStatistics.Average:N2}");
     Console.WriteLine($"Średnia literowa:{bestStatistics.AverageLetter}");
 }
 
-foreach (var supervisor in supervisors)
+foreach (var bestEmployeeInFile in bestEmployeesInFile)
 {
-    while (true)
-    {
-        Console.WriteLine($"Podaj ocenę kierownika: {supervisor.Name}");
-        var input = Console.ReadLine();
-        if (input == "next")
-        { break; }
-        try
-        {
-            supervisor.AddGrade(input);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
-    }
-}
+    if (bestEmployeeInFile.Sex == 'm') { text = ", uzyskał wynik "; }
+    if (bestEmployeeInFile.Sex == 'f') { text = ", uzyskała wynik "; }
 
-maxAverage = 0;
+    var bestStatistics = bestEmployeeInFile.GetStatistics();
 
-List<Supervisor> bestSupervisors = new List<Supervisor>();
-
-foreach (var supervisor in supervisors)
-{
-    var statistics = supervisor.GetStatistics();
-    if (statistics.Average > maxAverage)
-    {
-        maxAverage = statistics.Average;
-        bestSupervisors.Clear();
-        bestSupervisors.Add(supervisor);
-    }
-    else if (statistics.Average == maxAverage)
-    {
-        bestSupervisors.Add(supervisor);
-    }
+    Console.WriteLine();
+    Console.WriteLine($"Najlepszy pracownik:{bestEmployeeInFile.Name} {bestEmployeeInFile.Surname}, lat {bestEmployeeInFile.Age + text}");
+    Console.WriteLine($"Max:{bestStatistics.Max}");
+    Console.WriteLine($"Min:{bestStatistics.Min}");
+    Console.WriteLine($"Średnia liczbowa:{bestStatistics.Average:N2}");
+    Console.WriteLine($"Średnia literowa:{bestStatistics.AverageLetter}");
 }
 
 foreach (var bestSupervisor in bestSupervisors)
