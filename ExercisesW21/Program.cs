@@ -141,7 +141,8 @@ foreach (var bestEmployee in bestEmployees)
     var bestStatistics = bestEmployee.GetStatistics();
 
     Console.WriteLine();
-    Console.WriteLine($"Najlepszy pracownik sezonowy:{bestEmployee.Name} {bestEmployee.Surname}, lat {bestEmployee.Age + text}");
+    Console.WriteLine($"Najlepszy pracownik sezonowy" +
+        $":{bestEmployee.Name} {bestEmployee.Surname}, lat {bestEmployee.Age + text}");
     Console.WriteLine($"Max:{bestStatistics.Max}");
     Console.WriteLine($"Min:{bestStatistics.Min}");
     Console.WriteLine($"Średnia liczbowa:{bestStatistics.Average:N2}");

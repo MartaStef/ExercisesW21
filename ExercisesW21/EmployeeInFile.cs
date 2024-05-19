@@ -2,10 +2,11 @@
 {
     public class EmployeeInFile : EmployeeBase
     {
-        private const string fileName = "grades.txt";
+        private string fileName;
         public EmployeeInFile(string name, string surname, int age, char sex, Department department)
             : base(name, surname, age, sex, department)
         {
+            fileName = $"{name}_{surname}_grades.txt";
         }
 
         public override void AddGrade(float grade)
