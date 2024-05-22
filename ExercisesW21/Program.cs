@@ -15,6 +15,11 @@ List<EmployeeInFile> employeesInFile = new List<EmployeeInFile>();
 
 List<Supervisor> supervisors = new List<Supervisor>();
 
+void EmployeeGradeAdded(object sender, EventArgs args) 
+{
+    Console.WriteLine("Dodano nową ocenę");
+}
+
  void AddEmployeeData<T>(List<T> employeesList) where T : EmployeeBase
 {
     Console.WriteLine("Podaj imię:");
@@ -35,16 +40,19 @@ List<Supervisor> supervisors = new List<Supervisor>();
         {
             Employee employee = new Employee(name, surname, age, sex, department);
             employees.Add(employee);
+            employee.GradeAdded += EmployeeGradeAdded;
         }
         else if (employeesList is List<EmployeeInFile>)
         {
             EmployeeInFile employeeInFile = new EmployeeInFile(name, surname, age, sex, department);
             employeesInFile.Add(employeeInFile);
+            employeeInFile.GradeAdded += EmployeeGradeAdded;
         }
         else if (employeesList is List<Supervisor>)
         {
             Supervisor supervisor = new Supervisor(name, surname, age, sex, department);
             supervisors.Add(supervisor);
+            supervisor.GradeAdded += EmployeeGradeAdded;
         }
     }
     catch (Exception ex)

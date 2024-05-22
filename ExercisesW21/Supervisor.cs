@@ -3,6 +3,8 @@
     public class Supervisor : EmployeeBase
     {
         private List<float> grades = new List<float>();
+
+        public override event GradeAddedDelegate GradeAdded;
         public Supervisor(string name, string surname, int age, char sex, Department department)
             : base (name, surname, age, sex, department)
         {           
@@ -13,6 +15,10 @@
             if (grade >= 0 && grade <= 100)
             {
                 this.grades.Add(grade);
+                if (GradeAdded != null)
+                {
+                    GradeAdded(this, new EventArgs());
+                }
             }
             else
             {

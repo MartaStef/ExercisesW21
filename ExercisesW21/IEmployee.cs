@@ -1,7 +1,10 @@
-﻿namespace ExercisesW21
+﻿using static ExercisesW21.EmployeeBase;
+
+namespace ExercisesW21
 {
     public interface IEmployee
     {
+        public event GradeAddedDelegate GradeAdded;
         string Name { get; }
         string Surname { get; }
         int Age { get; }
