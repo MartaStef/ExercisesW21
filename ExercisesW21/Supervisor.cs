@@ -15,11 +15,11 @@
             if (grade >= 0 && grade <= 100)
             {
                 this.grades.Add(grade);
-                if (GradeAdded != null)
-                {
-                    GradeAdded(this, new EventArgs());
-                }
             }
+            if (GradeAdded != null)
+            {
+                GradeAdded(this, new EventArgs());
+            }            
             else
             {
                 throw new Exception($"{grade} is invalid grade value");
@@ -44,7 +44,7 @@
                         }
                         else
                         {
-                            this.AddGrade((char)grade[0] + 5);
+                            this.AddGrade((char)grade[0] +5);
                         }
                         break;
                     case '-':
@@ -54,7 +54,7 @@
                         }
                         else
                         {
-                            this.AddGrade((char)grade[0] - 5);
+                            this.AddGrade((char)grade[0] -5);
                         }
                         break;
                     default:

@@ -19,7 +19,7 @@
                 {
                     writer.WriteLine(grade);
                 }
-                if (GradeAdded!= null) 
+                if (GradeAdded != null)
                 {
                     GradeAdded(this, new EventArgs());
                 }
