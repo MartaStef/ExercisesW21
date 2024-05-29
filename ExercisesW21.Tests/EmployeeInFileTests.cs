@@ -12,7 +12,7 @@
             }
 
             //Arange
-            var employee = new EmployeeInFile("Agelina", "Jolie", 57, 'f',Department.Marketing );
+            var employee = new EmployeeInFile("Angelina", "Jolie", 57, 'f',Department.Marketing );
             employee.AddGrade(25);
             employee.AddGrade(79);
             employee.AddGrade(18);
@@ -38,7 +38,7 @@
             }
 
             //Arange
-            var employee = new EmployeeInFile("Agelina", "Jolie", 57, 'f', Department.Marketing);
+            var employee = new EmployeeInFile("Angelina", "Jolie", 57, 'f', Department.Marketing);
             employee.AddGrade('A');
             employee.AddGrade('B');
             employee.AddGrade('C');

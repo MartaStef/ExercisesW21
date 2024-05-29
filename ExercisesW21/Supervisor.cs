@@ -15,11 +15,11 @@
             if (grade >= 0 && grade <= 100)
             {
                 this.grades.Add(grade);
+                if (GradeAdded != null)
+                {
+                    GradeAdded(this, new EventArgs());
+                }
             }
-            if (GradeAdded != null)
-            {
-                GradeAdded(this, new EventArgs());
-            }            
             else
             {
                 throw new Exception($"{grade} is invalid grade value");
@@ -33,32 +33,25 @@
                 char.TryParse(grade, out char charResult);
                 this.AddGrade(charResult);
             }
-            else if (grade.Length == 2 && char.IsDigit(grade[0]) && grade[0] >= '1' && grade[0] <= '6' && grade[1] == '+' || grade[1] == '-')
+            else if (grade.Length == 2 && char.IsDigit(grade[0]) && grade[0] >= '1' && grade[0] <= '6' && (grade[1] == '+' || grade[1] == '-'))
             {
-                switch (grade[1])
+                float mappedGrade = grade switch
                 {
-                    case '+':
-                        if (grade[0] == 6)
-                        {
-                            throw new Exception("Cannot be over 6");
-                        }
-                        else
-                        {
-                            this.AddGrade((char)grade[0] +5);
-                        }
-                        break;
-                    case '-':
-                        if (grade[0] == 1)
-                        {
-                            throw new Exception("Cannot be below 1");
-                        }
-                        else
-                        {
-                            this.AddGrade((char)grade[0] -5);
-                        }
-                        break;
-                    default:
-                        throw new Exception("Invalid operation.Use '+' or '-'");
+                    "6-" or "-6" => 95,
+                    "5+" or "+5" => 85,
+                    "5-" or "-5" => 75,
+                    "4+" or "+4" => 65,
+                    "4-" or "-4" => 55,
+                    "3+" or "+3" => 45,
+                    "3-" or "-3" => 35,
+                    "2+" or "+2" => 25,
+                    "2-" or "-2" => 15,
+                    "1+" or "+1" => 5,
+                    _ => float.TryParse(grade, out float result) ? result : 0,
+                };
+                if (mappedGrade >= 0) 
+                {
+                this.AddGrade(mappedGrade);
                 }
             }
             else
