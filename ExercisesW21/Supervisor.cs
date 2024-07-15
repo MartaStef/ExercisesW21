@@ -33,7 +33,7 @@
                 char.TryParse(grade, out char charResult);
                 this.AddGrade(charResult);
             }
-            else if (grade.Length == 2 && char.IsDigit(grade[0]) && grade[0] >= '1' && grade[0] <= '6' && (grade[1] == '+' || grade[1] == '-'))
+            else if (grade.Length == 2)
             {
                 float mappedGrade = grade switch
                 {
@@ -56,7 +56,7 @@
             }
             else
             {
-                throw new Exception("String is not float");
+                throw new Exception($"{grade}is not correct mark, please try again");
             }
         }
 
@@ -93,7 +93,7 @@
                     this.AddGrade(0);
                     break;
                 default:
-                    throw new Exception("Wrong Letter");
+                    throw new Exception($"{grade}is not correct mark, please try again");
             }
         }
 
